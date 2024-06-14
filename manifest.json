@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Auto Add Room Extension",
+    "version": "1.0",
+    "description": "Clicks the 'Add Room' button automatically when 'Patient Details' button is clicked.",
+    "permissions": [
+      "activeTab"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ]
+  }
+  
