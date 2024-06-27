@@ -1,48 +1,41 @@
-// Function to manage state using localStorage
-function getState(key) {
-    const value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : null;
-}
-
-function setState(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
-}
-
-// Initialize state for Add Room button click tracking
-let addRoomButtonClicked = getState('addRoomButtonClicked') || false;
-
-// Function to click the Add Room button only once
+// Function to click the Add Room button conditionally
 function clickAddRoomButton() {
-    const addRoomButton = document.querySelector('button.p-button.p-component.add_room_btn');
-    if (addRoomButton && !addRoomButtonClicked) {
-        addRoomButton.click();
-        console.log('Clicked on the "Add Room" button.');
-        addRoomButtonClicked = true; // Mark as clicked
-        setState('addRoomButtonClicked', addRoomButtonClicked); // Save state
-    } else {
-        console.error('Add Room button not found or already clicked.');
-    }
-}
+    const roomTypeLabel = document.querySelector('div[data-v-d19b1848=""] div.spaced-form-group.p-fluid.p-formgrid.p-grid div.p-field.p-col label.field_label[for="firstname"]');
 
-// Function to set up event listener for Patient Details button
-function setupPatientDetailsButton() {
+    if (roomTypeLabel) {
+      console.log('Room Type label found in patient details. Skipping auto-click of Add Room button.');
+      return; // Skip clicking Add Room button
+    }
+  
+    const addRoomButton = document.querySelector('button.p-button.p-component.add_room_btn');
+    if (addRoomButton) {
+      addRoomButton.click();
+      console.log('Clicked on the "Add Room" button.');
+    } else {
+      console.error('Add Room button not found.');
+    }
+  }
+  
+  // Function to set up event listener for Patient Details button
+  function setupPatientDetailsButton() {
     const patientDetailsButton = document.querySelector('button.p-button.p-component.p-button-text.rejectreason_btn.patient_details_btn.vertical_text_bottom');
     if (patientDetailsButton) {
-        console.log('Patient Details button found.');
-        console.log('Patient Details Button HTML:', patientDetailsButton.outerHTML);
-
-        // Attach event listener directly
-        patientDetailsButton.addEventListener('click', function() {
-            console.log('Patient Details button clicked by user.');
-            clickAddRoomButton(); // Click Add Room button if not already clicked
-        });
+      console.log('Patient Details button found.');
+      console.log('Patient Details Button HTML:', patientDetailsButton.outerHTML);
+  
+      // Attach event listener directly
+      patientDetailsButton.addEventListener('click', function() {
+        console.log('Patient Details button clicked by user.');
+        clickAddRoomButton(); // Click Add Room button after checking room type label
+      });
     } else {
-        console.error('Patient Details button not found.');
+      console.error('Patient Details button not found.');
     }
-}
-
-// Wait until the page is fully loaded before running the script
-window.addEventListener('load', function() {
+  }
+  
+  // Wait until the page is fully loaded before running the script
+  window.addEventListener('load', function() {
     console.log('Window loaded, running script...');
     setupPatientDetailsButton();
-});
+  });
+  
