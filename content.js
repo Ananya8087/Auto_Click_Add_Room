@@ -1,11 +1,26 @@
-// Function to click the Add Room button
+// Function to manage state using localStorage
+function getState(key) {
+    const value = localStorage.getItem(key);
+    return value ? JSON.parse(value) : null;
+}
+
+function setState(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Initialize state for Add Room button click tracking
+let addRoomButtonClicked = getState('addRoomButtonClicked') || false;
+
+// Function to click the Add Room button only once
 function clickAddRoomButton() {
     const addRoomButton = document.querySelector('button.p-button.p-component.add_room_btn');
-    if (addRoomButton) {
+    if (addRoomButton && !addRoomButtonClicked) {
         addRoomButton.click();
         console.log('Clicked on the "Add Room" button.');
+        addRoomButtonClicked = true; // Mark as clicked
+        setState('addRoomButtonClicked', addRoomButtonClicked); // Save state
     } else {
-        console.error('Add Room button not found.');
+        console.error('Add Room button not found or already clicked.');
     }
 }
 
@@ -19,7 +34,7 @@ function setupPatientDetailsButton() {
         // Attach event listener directly
         patientDetailsButton.addEventListener('click', function() {
             console.log('Patient Details button clicked by user.');
-            clickAddRoomButton(); // Click Add Room button after 1 second delay
+            clickAddRoomButton(); // Click Add Room button if not already clicked
         });
     } else {
         console.error('Patient Details button not found.');
