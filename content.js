@@ -1,6 +1,6 @@
 // Function to click the Add Room button conditionally
 function clickAddRoomButton() {
-    const roomTypeLabel = document.querySelector('div[data-v-d19b1848=""] div.spaced-form-group.p-fluid.p-formgrid.p-grid div.p-field.p-col label.field_label[for="firstname"]');
+    const roomTypeLabel = document.querySelector('div[data-v-524dcdd3] > div[data-v-524dcdd3].spaced-form-group.p-fluid.p-formgrid.p-grid > div[data-v-524dcdd3].p-field.p-col > label[data-v-524dcdd3].field_label[for="firstname"] + input[data-v-524dcdd3].p-inputtext.p-component.subm_field.form-control');
 
     if (roomTypeLabel) {
       console.log('Room Type label found in patient details. Skipping auto-click of Add Room button.');
